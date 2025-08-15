@@ -27,7 +27,7 @@
   <project path="hardware/lineage/compat" name="LineageOS/android_hardware_lineage_compat" />
   <project path="hardware/lineage/interfaces" name="LineageOS/android_hardware_lineage_interfaces" />
   <project path="hardware/lineage/livedisplay" name="LineageOS/android_hardware_lineage_livedisplay" />
-  <project path="lineage-sdk" name="LineageOS/android_lineage-sdk" />
+  <project path="lineage-sdk" name="cijaaimee/android_lineage-sdk" />
   <project path="packages/apps/Aperture" name="LineageOS/android_packages_apps_Aperture" />
   <project path="packages/apps/AudioFX" name="LineageOS/android_packages_apps_AudioFX" />
   <project path="packages/apps/Backgrounds" name="LineageOS/android_packages_apps_Backgrounds" />
@@ -46,7 +46,7 @@
   <project path="packages/apps/Profiles" name="LineageOS/android_packages_apps_Profiles" />
   <project path="packages/apps/Recorder" name="LineageOS/android_packages_apps_Recorder" />
   <project path="packages/apps/Seedvault" name="LineageOS/android_packages_apps_Seedvault" />
-  <project path="packages/apps/SetupWizard" name="LineageOS/android_packages_apps_SetupWizard" />
+  <project path="packages/apps/SetupWizard" name="cijaaimee/android_packages_apps_SetupWizard" />
   <project path="packages/apps/SimpleDeviceConfig" name="LineageOS/android_packages_apps_SimpleDeviceConfig" />
   <project path="packages/apps/SimpleSettingsConfig" name="LineageOS/android_packages_apps_SimpleSettingsConfig" />
   <project path="packages/apps/Twelve" name="LineageOS/android_packages_apps_Twelve" />
@@ -146,8 +146,8 @@
   <project path="hardware/qcom-caf/msm8998/audio" name="LineageOS/android_hardware_qcom_audio" groups="qcom,legacy-qcom" revision="lineage-22.2-caf-msm8998" />
   <project path="hardware/qcom-caf/msm8998/display" name="LineageOS/android_hardware_qcom_display" groups="qcom,legacy-qcom" revision="lineage-22.2-caf-msm8998" />
   <project path="hardware/qcom-caf/msm8998/media" name="LineageOS/android_hardware_qcom_media" groups="qcom,legacy-qcom" revision="lineage-22.2-caf-msm8998" />
-  <project path="hardware/qcom-caf/sdm660/audio" name="LineageOS/android_hardware_qcom_audio" groups="qcom,sdm660" revision="lineage-22.2-caf-sdm660" />
-  <project path="hardware/qcom-caf/sdm660/display" name="LineageOS/android_hardware_qcom_display" groups="qcom" revision="lineage-22.2-caf-sdm660" />
+  <project path="hardware/qcom-caf/sdm660/audio" name="cijaaimee/android_hardware_qcom-caf_audio" groups="qcom,sdm660" revision="lineage-22.2" />
+  <project path="hardware/qcom-caf/sdm660/display" name="cijaaimee/android_hardware_qcom-caf_display" groups="qcom" revision="lineage-22.2-caf-sdm660" />
   <project path="hardware/qcom-caf/sdm660/media" name="LineageOS/android_hardware_qcom_media" groups="qcom,sdm660" revision="lineage-22.2-caf-sdm660" />
   <project path="hardware/qcom-caf/sdm845/audio" name="LineageOS/android_hardware_qcom_audio" groups="qcom,sdm845" revision="lineage-22.2-caf-sdm845" />
   <project path="hardware/qcom-caf/sdm845/display" name="LineageOS/android_hardware_qcom_display" groups="qcom" revision="lineage-22.2-caf-sdm845" />
