@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-    <remote name="iusmac" fetch="https://github.com/iusmac" revision="qcom" />
-    <project path="packages/apps/RevampedFMRadio" name="RevampedFMRadio" remote="iusmac" />
+
+    <remote name="iusmac"
+        fetch="https://github.com/iusmac/"
+        revision="qcom" />
+
+    <project
+        path="packages/apps/RevampedFMRadio"
+        name="RevampedFMRadio"
+        remote="iusmac" />
+
 </manifest>
