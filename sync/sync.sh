@@ -7,7 +7,7 @@ echo "Using base directory: $BASE_DIR"
 mkdir -p "$BASE_DIR"
 cd "$BASE_DIR"
 
-yq -r '.repos[] | "\(.name) \(.fork) \(.upstream) \(.branch)"' ../repos.yaml | while read -r name fork upstream branch; do
+yq -r '.repos[] | "\(.name) \(.fork) \(.upstream) \(.branch)"' ../sync/repos.yaml | while read -r name fork upstream branch; do
   echo ""
   echo "=============================="
   echo "Syncing $name ($branch)"
