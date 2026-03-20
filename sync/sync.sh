@@ -2,8 +2,7 @@
 set -e
 
 BASE_DIR=${1:-repos}
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_FILE="$SCRIPT_DIR/repos.yaml"
+REPO_FILE="/var/lib/buildkite-agent/Buildkite-1/simplephone/build/sync/repos.yaml"
 
 echo "Using base directory: $BASE_DIR"
 mkdir -p "$BASE_DIR"
