@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
 BASE_DIR=${1:-repos}
 REPO_FILE="/var/lib/buildkite-agent/Buildkite-1/simplephone/build/sync/repos.yaml"
@@ -18,12 +18,12 @@ yq -r '.repos[] | "\(.name) \(.fork) \(.upstream) \(.branch)"' "$REPO_FILE" | wh
     echo "Cloning fork (shallow)..."
     echo "FORK URL: [$fork]"
     git clone --depth=1 --branch "$branch" "$fork" "$name" || {
-      echo "Branch not found on fork, cloning default branch..."
+      echo "Branch $branch not found on fork, cloning default branch..."
       git clone --depth=1 "$fork" "$name"
     }
   fi
 
-  cd "$name"
+  pushd "$name" > /dev/null
 
   # Ensure remotes
   git remote add upstream "$upstream" 2>/dev/null || true
@@ -33,12 +33,19 @@ yq -r '.repos[] | "\(.name) \(.fork) \(.upstream) \(.branch)"' "$REPO_FILE" | wh
   git fetch origin "$branch" --depth=1 --prune || true
   git fetch upstream "$branch" --depth=1 --prune || {
     echo "Upstream branch $branch not found, skipping..."
-    cd ..
+    popd > /dev/null
     continue
   }
 
-  # Ensure correct branch
-  git checkout "$branch" 2>/dev/null || git checkout -b "$branch"
+  # Unshallow if needed for rebase/merge
+  git fetch --unshallow upstream "$branch" 2>/dev/null || true
+
+  # Ensure correct branch from upstream
+  if git show-ref --verify --quiet "refs/heads/$branch"; then
+    git checkout "$branch"
+  else
+    git checkout -B "$branch" "upstream/$branch" || git checkout -B "$branch"
+  fi
 
   # Get commit hashes
   LOCAL=$(git rev-parse HEAD)
@@ -46,7 +53,7 @@ yq -r '.repos[] | "\(.name) \(.fork) \(.upstream) \(.branch)"' "$REPO_FILE" | wh
 
   if [ "$LOCAL" = "$REMOTE" ]; then
     echo "Already up-to-date, skipping..."
-    cd ..
+    popd > /dev/null
     continue
   fi
 
@@ -54,19 +61,24 @@ yq -r '.repos[] | "\(.name) \(.fork) \(.upstream) \(.branch)"' "$REPO_FILE" | wh
 
   # Try rebase first
   if ! git rebase "upstream/$branch"; then
-    echo "Rebase failed, trying merge..."
+    echo "Rebase failed, attempting merge..."
     git rebase --abort || true
 
+    # Try fast-forward merge
     if ! git merge --ff-only "upstream/$branch"; then
-      echo "Fast-forward failed, doing normal merge..."
-      git merge "upstream/$branch"
+      echo "Fast-forward merge failed, doing normal merge..."
+      git merge "upstream/$branch" || {
+        echo "Merge conflict occurred! Please resolve manually."
+        popd > /dev/null
+        continue
+      }
     fi
   fi
 
-  echo "Pushing changes..."
+  echo "Pushing changes to fork..."
   git push origin "$branch"
 
-  cd ..
+  popd > /dev/null
 done
 
 echo ""
