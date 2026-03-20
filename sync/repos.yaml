@@ -1,5 +1,5 @@
 repos:
   - name: android_packages_apps_Settings
-    fork: Simple-Phone-NL/android_packages_apps_Settings
+    fork: https://github.com/Simple-Phone-NL/android_packages_apps_Settings.git
     upstream: https://github.com/LineageOS/android_packages_apps_Settings.git
     branch: lineage-22.2
