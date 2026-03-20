@@ -2,12 +2,14 @@
 set -e
 
 BASE_DIR=${1:-repos}
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_FILE="$SCRIPT_DIR/repos.yaml"
 
 echo "Using base directory: $BASE_DIR"
 mkdir -p "$BASE_DIR"
 cd "$BASE_DIR"
 
-yq -r '.repos[] | "\(.name) \(.fork) \(.upstream) \(.branch)"' ../sync/repos.yaml | while read -r name fork upstream branch; do
+yq -r '.repos[] | "\(.name) \(.fork) \(.upstream) \(.branch)"' "$REPO_FILE" | while read -r name fork upstream branch; do
   echo ""
   echo "=============================="
   echo "Syncing $name ($branch)"
