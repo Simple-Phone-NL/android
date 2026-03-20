@@ -16,6 +16,7 @@ yq -r '.repos[] | "\(.name) \(.fork) \(.upstream) \(.branch)"' "$REPO_FILE" | wh
 
   if [ ! -d "$name/.git" ]; then
     echo "Cloning fork (shallow)..."
+    echo "FORK URL: [$fork]"
     git clone --depth=1 --branch "$branch" "$fork" "$name" || {
       echo "Branch not found on fork, cloning default branch..."
       git clone --depth=1 "$fork" "$name"
